@@ -23,6 +23,8 @@ app.use(cookieParser())
 // route imports
 import userRoutes from "./routes/user.route.js"
 import workoutRoutes from "./routes/workout.route.js"
+import { errorHandler } from "./utils/errorHandler.js"
 
 app.use("/api/v1/user", userRoutes)
 app.use("/api/v1/workout", workoutRoutes)
+app.use(errorHandler) // Error handler middleware should be the last middleware

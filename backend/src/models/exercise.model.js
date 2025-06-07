@@ -2,9 +2,16 @@ import mongoose from "mongoose"
 
 const exerciseSchema = new mongoose.Schema(
   {
-    exerciseId: { type: String, required: true, unique: true }, // Unique identifier for the exercise e.g., "ex12345"
-    name: { type: String, required: true }, // e.g., Bench Press, Squat
-    muscleGroup: { type: [String], required: true }, // e.g., Chest, Back, Legs
+    exerciseId: {
+      type: String,
+      required: [true, "Exercise ID is required"],
+      unique: true,
+    }, // Unique identifier for the exercise e.g., "ex12345"
+    name: { type: String, required: [true, "Exercise name is required"] }, // e.g., Bench Press, Squat
+    muscleGroup: {
+      type: [String],
+      required: [true, "Muscle group is required"],
+    }, // e.g., Chest, Back, Legs
     equipment: { type: String }, // e.g., Dumbbell, Barbell, Bodyweight
     suggestedSets: { type: Number, default: 3 },
     suggestedReps: { type: Number, default: 12 },
@@ -15,7 +22,6 @@ const exerciseSchema = new mongoose.Schema(
 )
 
 export const Exercise = mongoose.model("Exercise", exerciseSchema)
-
 
 // Chest: ch - 001, ch - 002
 // Back: bk - 001, bk - 002

@@ -1,138 +1,144 @@
 import { Exercise } from "../models/exercise.model.js"
+import { History } from "../models/history.model.js"
 import { User } from "../models/user.model.js"
 import { WorkoutPlan } from "../models/workoutPlan.model.js"
 import { WorkoutLog } from "../models/workoutlog.model.js"
+import { ApiError } from "../utils/ApiError.js"
+import { ApiResponse } from "../utils/ApiResponse.js"
+import { asyncHandler } from "../utils/asyncHandler.js"
 
-const createWorkout = async (req, res) => {
-  try {
-    // Simulate exercise creation logic
-    const {
-      name,
-      exerciseId,
-      muscleGroup,
-      equipment,
-      suggestedSets,
-      suggestedReps,
-    } = req.body
+const createWorkout = asyncHandler(async (req, res) => {
+  const {
+    name,
+    exerciseId,
+    muscleGroup,
+    equipment,
+    suggestedSets,
+    suggestedReps,
+  } = req.body
 
-    if (!name || !exerciseId) {
-      return res
-        .status(400)
-        .json({ message: "Name and exerciseId are required" })
-    }
-
-    // Here you would typically save the exercise to the database
-    const newExercise = {
-      exerciseId,
-      name,
-      muscleGroup,
-      equipment,
-      suggestedSets,
-      suggestedReps,
-    }
-
-    const exercise = await Exercise.create(newExercise)
-
-    if (!exercise) {
-      return res.status(400).json({ message: "Exercise creation failed" })
-    }
-
-    res.status(201).json({
-      message: "Exercise created successfully",
-      data: exercise,
-    })
-  } catch (error) {
-    console.error("Error during exercise creation:", error)
-    res.status(500).json({ message: "Internal server error" })
+  if (!name || !exerciseId) {
+    throw new ApiError(400, "Validation Error", [
+      "Name and Exercise ID are required",
+    ])
   }
-}
 
-const createWorkoutPlan = async (req, res) => {
-  try {
-    // Simulate workout plan creation logic
-    const { userId, name, description, type, cycle, workoutDays } = req.body
+  const newExercise = {
+    exerciseId,
+    name,
+    muscleGroup,
+    equipment,
+    suggestedSets,
+    suggestedReps,
+  }
 
-    if (!userId || !name || !type || !cycle || !workoutDays) {
-      return res.status(400).json({ message: "All fields are required" })
-    }
+  const exercise = await Exercise.create(newExercise)
 
-    // Here you would typically save the workout plan to the database
-    const newWorkoutPlan = {
-      userId,
-      name,
-      description,
-      type,
-      cycle,
-      workoutDays,
-      ...req.body,
-    }
+  if (!exercise) {
+    throw new ApiError(400, "Exercise creation failed")
+  }
 
-    // Assuming WorkoutPlan is a Mongoose model
-    const workoutPlan = await WorkoutPlan.create(newWorkoutPlan)
+  res
+    .status(201)
+    .json(new ApiResponse(201, exercise, "Exercise created successfully"))
+})
 
-    if (!workoutPlan) {
-      return res.status(400).json({ message: "Workout plan creation failed" })
-    }
+const createWorkoutPlan = asyncHandler(async (req, res) => {
+  const { userId, name, description, type, cycle, workoutDays } = req.body
 
-    console.log(workoutPlan._id, "workoutPlan")
+  if (!userId || !name || !type || !cycle || !workoutDays) {
+    throw new ApiError(400, "Validation Error", ["all fields are required"])
+  }
 
-    const user = await User.findByIdAndUpdate(
-      userId,
-      {
-        currentPlanId: workoutPlan._id,
-        selectedWorkoutType: workoutPlan.type,
-      },
-      { new: true }
+  const newWorkoutPlan = {
+    userId,
+    name,
+    description,
+    type,
+    cycle,
+    workoutDays,
+    ...req.body,
+  }
+
+  const workoutPlan = await WorkoutPlan.create(newWorkoutPlan)
+
+  if (!workoutPlan) {
+    throw new ApiError(400, "Workout plan creation failed")
+  }
+
+  // Update user's current plan and selected workout type
+  const user = await User.findByIdAndUpdate(
+    userId,
+    {
+      currentPlanId: workoutPlan._id,
+      selectedWorkoutType: workoutPlan.type,
+    },
+    { new: true }
+  )
+
+  if (!user) {
+    throw new ApiError(404, "User not found")
+  }
+
+  res
+    .status(201)
+    .json(
+      new ApiResponse(201, workoutPlan, "Workout plan created successfully")
     )
+})
 
-    if (!user) {
-      return res.status(400).json({ message: "User not found" })
-    }
+const workoutLog = asyncHandler(async (req, res) => {
+  const { userId, workoutTypeName, exercises } = req.body
 
-    console.log("Created Workout Plan:", workoutPlan)
-
-    res.status(201).json({
-      message: "Workout plan created successfully",
-      data: workoutPlan,
-    })
-  } catch (error) {
-    console.error("Error during workout plan creation:", error)
-    res.status(500).json({ message: "Internal server error" })
+  if (!userId || !workoutTypeName || !exercises) {
+    throw new ApiError(400, "Validation Error", [
+      "User ID, workout type name, and exercises are required",
+    ])
   }
-}
 
-const workoutLog = async (req, res) => {
-  try {
-    // Simulate workout log creation logic
-    const { userId, workoutTypeName, exercises } = req.body
+  // check if user log workout today
+  const today = new Date().toISOString().split("T")[0]
+  const existingLog = await WorkoutLog.findOne({
+    userId: userId,
+    date: today,
+  })
 
-    if (!userId || !workoutTypeName || !exercises) {
-      return res.status(400).json({ message: "All fields are required" })
-    }
-
-    // Here you would typically save the workout log to the database
-    const newWorkoutLog = {
-      userId: userId,
-      workoutTypeName,
-      date: new Date(), // Default to current date
-      exercises,
-    }
-
-    // Assuming WorkoutLog is a Mongoose model
-    const workoutLog = await WorkoutLog.create(newWorkoutLog)
-
-    if (!workoutLog) {
-      return res.status(400).json({ message: "Workout log creation failed" })
-    }
-
-    res.status(201).json({
-      message: "Workout log created successfully",
-      data: workoutLog,
-    })
-  } catch (error) {
-    console.error("Error during workout log creation:", error)
-    res.status(500).json({ message: "Internal server error" })
+  if (existingLog) {
+    throw new ApiError(400, "Workout log for today already exists")
   }
-}
+
+  const newWorkoutLog = {
+    userId: userId,
+    workoutTypeName,
+    // Default to current date in yyyy-mm-dd format
+    date: new Date().toISOString().split("T")[0],
+    exercises,
+  }
+
+  const workoutLog = await WorkoutLog.create(newWorkoutLog)
+
+  if (!workoutLog) {
+    throw new ApiError(400, "Workout log creation failed")
+  }
+
+  // update history
+  await History.findByIdAndUpdate(
+    userId,
+    {
+      $push: {
+        history: {
+          date: new Date(),
+          status: "completed", // or "skipped" based on your logic
+        },
+      },
+      lastWorkoutDate: new Date(),
+    },
+    { new: true, upsert: true } // Create if not exists
+  )
+
+  res
+    .status(201)
+    .json(new ApiResponse(201, workoutLog, "Workout log created successfully"))
+})
 
 export { createWorkout, createWorkoutPlan, workoutLog }

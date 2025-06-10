@@ -1,4 +1,6 @@
 import { User } from "../models/user.model.js"
+import { asyncHandler } from "../utils/asyncHandler.js"
+import { generateRandomToken } from "../utils/generateRandomToken.js"
 
 const registerUser = async (req, res) => {
   try {
@@ -31,4 +33,52 @@ const registerUser = async (req, res) => {
   }
 }
 
-export { registerUser }
+const loginUser = asyncHandler(async (req, res) => {
+  const { username, password } = req.body
+
+  if (!username || !password) {
+    throw new ApiError(400, "Validation Error", [
+      "Username and password are required",
+    ])
+  }
+
+  const user = await User.findOne({ username })
+
+  if (!user) {
+    throw new ApiError(401, "Authentication Error", [
+      "Invalid username or password",
+    ])
+  }
+
+  if (user.password !== password) {
+    throw new ApiError(401, "Authentication Error", [
+      "Invalid username or password",
+    ])
+  }
+
+  const token = generateRandomToken(32)
+
+  if (!token) {
+    throw new ApiError(500, "Token Generation Error", [
+      "Failed to generate authentication token",
+    ])
+  }
+
+  user.token = token
+  await user.save()
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  })
+
+  res.status(200).json(
+    new ApiResponse(200, "Login successful", {
+      user: {
+        id: user._id,
+      },
+    })
+  )
+})
+
+export { registerUser, loginUser }

@@ -7,7 +7,7 @@ const AppRoute = () => {
     <div className="@container  min-h-screen px-6 py-2 mt-12">
       <Routes>
         <Route index element={<Home />} />
-        <Route path="workout-log" element={<Workout />} />
+        <Route path="workout" element={<Workout />} />
       </Routes>
     </div>
   )

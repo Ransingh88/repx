@@ -20,6 +20,11 @@ app.use(express.json({ limit: "16kb" }))
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
 app.use(cookieParser())
 
+// health check route
+app.get("/healthcheck", (req, res) => {
+  res.status(200).json({ message: "Server is running" })
+})
+
 // route imports
 import userRoutes from "./routes/user.route.js"
 import workoutRoutes from "./routes/workout.route.js"

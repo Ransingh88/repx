@@ -1,13 +1,12 @@
-import "./App.css"
-import Navbar from "./components/Navbar"
-import AppRoute from "./router/AppRoute"
+import { WorkoutProvider } from './store/WorkoutContext'
+import AppRoute from './router/AppRoute'
+import './App.css'
 
 function App() {
   return (
-    <>
-      <Navbar />
+    <WorkoutProvider>
       <AppRoute />
-    </>
+    </WorkoutProvider>
   )
 }
 

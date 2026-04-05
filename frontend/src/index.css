@@ -1,11 +1,17 @@
 @import "tailwindcss";
 
+/* Class-based dark mode — toggle .dark on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   font-family: "Inter", sans-serif;
 }
 
-/* * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-} */
+/* Hide scrollbar while keeping scroll functionality */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

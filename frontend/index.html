@@ -13,6 +13,18 @@
     <title>Repx</title>
   </head>
   <body>
+    <!-- Apply saved theme before React mounts to prevent flash -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('repx_theme');
+          var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (saved === 'dark' || (!saved && prefersDark)) {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryvo — Motion Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@900&family=Figtree:wght@400;600;700;800&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0D0D0D;
+  --paper: #F5F2EE;
+  --blue: #2563EB;
+  --slate: #64748B;
+  --warm: #E8E4DC;
+  --white: #fff;
+  --off: #FAFAF8;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: #0D0D0D;
+  font-family: 'Manrope', sans-serif;
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 52px 28px 100px;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 56px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  animation: fadeUp 0.6s ease both;
+}
+
+.header h1 {
+  font-family: 'Figtree', sans-serif;
+  font-size: clamp(22px,4vw,30px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--white);
+}
+
+.header p { font-size: 12px; color: var(--slate); margin-top: 4px; }
+
+.h-pills { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.pill { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; }
+.pb { background: rgba(37,99,235,.15); color: #93C5FD; }
+.pk { background: rgba(255,255,255,.07); color: rgba(255,255,255,.6); }
+
+/* SECTION */
+.sec { margin-bottom: 72px; animation: fadeUp 0.6s ease both; }
+.sec:nth-child(2){animation-delay:.05s}
+.sec:nth-child(3){animation-delay:.10s}
+.sec:nth-child(4){animation-delay:.15s}
+.sec:nth-child(5){animation-delay:.20s}
+.sec:nth-child(6){animation-delay:.25s}
+.sec:nth-child(7){animation-delay:.30s}
+
+.sh { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.sn { font-size: 10px; font-weight: 700; color: var(--blue); letter-spacing: .2em; }
+.st { font-size: 11px; font-weight: 600; color: rgba(255,255,255,.35); letter-spacing: .18em; text-transform: uppercase; }
+.sl { flex: 1; height: 1px; background: rgba(255,255,255,.07); }
+
+/* GRIDS */
+.g2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+.g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+
+@media(max-width:720px){ .g3,.g4{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:440px){ .g2,.g3,.g4{grid-template-columns:1fr} }
+
+/* CARD */
+.card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #161616;
+  border: 1px solid rgba(255,255,255,.06);
+  transition: transform .2s ease, border-color .2s ease;
+}
+.card:hover { transform: translateY(-3px); border-color: rgba(37,99,235,.3); }
+
+.cv {
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+
+.meta {
+  padding: 14px 18px;
+  border-top: 1px solid rgba(255,255,255,.05);
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.mn { font-size: 11px; font-weight: 700; color: var(--white); }
+.ms { font-size: 10px; color: var(--slate); margin-top: 2px; }
+
+.tag { font-size: 9px; font-weight: 700; letter-spacing: .08em; padding: 3px 8px; border-radius: 100px; }
+.tb { background: rgba(37,99,235,.2); color: #93C5FD; }
+.tg { background: rgba(34,197,94,.15); color: #4ade80; }
+.ts { background: rgba(255,255,255,.07); color: rgba(255,255,255,.5); }
+
+/* ========================
+   LOGO MIXIN
+======================== */
+.logo { display: flex; align-items: baseline; }
+.lr { font-family:'Chivo',sans-serif; font-weight:900; letter-spacing:-0.04em; color:var(--blue); }
+.lyvo { font-family:'Chivo',sans-serif; font-weight:900; letter-spacing:-0.04em; color:var(--white); }
+.ldot { border-radius:50%; flex-shrink:0; background:var(--blue); }
+
+/* ========================
+   01 SPLASH / INTRO
+======================== */
+
+.splash {
+  height: 360px;
+  background: var(--ink);
+  border-radius: 24px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  cursor: pointer;
+}
+
+.splash-restart {
+  position: absolute; bottom: 20px; right: 24px;
+  font-size: 10px; color: rgba(255,255,255,.25); letter-spacing: .1em;
+  text-transform: uppercase; cursor: pointer;
+  transition: color .2s ease;
+  z-index: 10;
+}
+.splash-restart:hover { color: rgba(255,255,255,.6); }
+
+/* the animating logo in splash */
+.splash-logo {
+  display: flex; align-items: baseline;
+  position: relative; z-index: 2;
+}
+
+.sl-r {
+  font-family:'Chivo',sans-serif; font-weight:900;
+  font-size: 80px; color: var(--blue);
+  letter-spacing: -0.04em;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: splashR 0.5s cubic-bezier(.16,1,.3,1) 0.3s both;
+}
+
+.sl-yvo {
+  font-family:'Chivo',sans-serif; font-weight:900;
+  font-size: 80px; color: var(--white);
+  letter-spacing: -0.04em;
+  opacity: 0;
+  transform: translateX(20px);
+  animation: splashYVO 0.5s cubic-bezier(.16,1,.3,1) 0.55s both;
+}
+
+.sl-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%; background: var(--blue);
+  margin-left: 4px; margin-bottom: 15px; flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0);
+  animation: splashDot 0.4s cubic-bezier(.34,1.56,.64,1) 0.9s both;
+}
+
+/* horizontal sweep line */
+.splash-sweep {
+  position: absolute;
+  bottom: 92px;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--blue), transparent);
+  opacity: 0;
+  animation: sweepLine 0.6s ease 1.0s both;
+}
+
+/* tagline */
+.splash-tagline {
+  position: absolute;
+  bottom: 60px;
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0);
+  animation: fadeInTag 0.6s ease 1.2s both;
+}
+
+@keyframes splashR {
+  from { opacity:0; transform:translateX(-20px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes splashYVO {
+  from { opacity:0; transform:translateX(20px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+@keyframes splashDot {
+  from { opacity:0; transform:scale(0); }
+  to   { opacity:1; transform:scale(1); }
+}
+@keyframes sweepLine {
+  from { opacity:0; transform:scaleX(0); }
+  to   { opacity:1; transform:scaleX(1); }
+}
+@keyframes fadeInTag {
+  from { color:rgba(255,255,255,0); letter-spacing:0.4em; }
+  to   { color:rgba(255,255,255,0.3); letter-spacing:0.28em; }
+}
+
+/* ========================
+   02 LOADING STATES
+======================== */
+
+/* Loading A — dot grows into wordmark */
+.load-a {
+  height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+
+.la-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%; background: var(--blue);
+  animation: dotExpand 2s cubic-bezier(.16,1,.3,1) infinite;
+}
+
+@keyframes dotExpand {
+  0%   { width:12px; height:12px; opacity:1; }
+  40%  { width:12px; height:12px; opacity:1; }
+  60%  { width:200px; height:12px; border-radius:6px; opacity:1; }
+  80%  { width:200px; height:12px; border-radius:6px; opacity:0; }
+  100% { width:12px; height:12px; opacity:0; }
+}
+
+/* Loading B — three dots racing */
+.load-b {
+  height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; position: relative; overflow: hidden;
+}
+
+.lb-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  animation: dotRace 1.4s ease-in-out infinite;
+}
+.lb-dot:nth-child(1){ background: var(--blue); animation-delay: 0s; }
+.lb-dot:nth-child(2){ background: rgba(37,99,235,.6); animation-delay: .15s; }
+.lb-dot:nth-child(3){ background: rgba(37,99,235,.3); animation-delay: .3s; }
+
+@keyframes dotRace {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+
+/* Loading C — wordmark trace */
+.load-c {
+  height: 180px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+
+.lc-logo {
+  display: flex; align-items: baseline;
+  position: relative;
+}
+
+.lc-r   { font-family:'Chivo',sans-serif; font-weight:900; font-size:44px; color:var(--blue); letter-spacing:-0.04em; }
+.lc-yvo { font-family:'Chivo',sans-serif; font-weight:900; font-size:44px; letter-spacing:-0.04em; }
+.lc-dot { width:7px; height:7px; border-radius:50%; background:var(--blue); margin-left:2px; margin-bottom:8px; flex-shrink:0; }
+
+/* shimmer sweep over it */
+.lc-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.15) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: -100% 0; }
+  to   { background-position: 200% 0; }
+}
+
+/* Loading D — progress line under logo */
+.load-d {
+  height: 180px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 16px;
+  position: relative; overflow: hidden;
+}
+
+.ld-logo { display: flex; align-items: baseline; }
+.ld-bar-track {
+  width: 120px; height: 2px;
+  background: rgba(255,255,255,.08);
+  border-radius: 1px; overflow: hidden;
+}
+.ld-bar-fill {
+  height: 100%; background: var(--blue); border-radius: 1px;
+  animation: barFill 2s cubic-bezier(.4,0,.2,1) infinite;
+}
+
+@keyframes barFill {
+  0%   { width:0%;   opacity:1; }
+  70%  { width:100%; opacity:1; }
+  85%  { width:100%; opacity:0; }
+  100% { width:0%;   opacity:0; }
+}
+
+/* ========================
+   03 TRANSITION TYPES
+======================== */
+
+/* Trans A — slide in from left */
+.trans-a {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+
+.ta-logo {
+  display: flex; align-items: baseline;
+  animation: slideFromLeft 2.4s cubic-bezier(.16,1,.3,1) infinite;
+}
+
+@keyframes slideFromLeft {
+  0%,15%  { opacity:0; transform:translateX(-40px); }
+  25%,75% { opacity:1; transform:translateX(0); }
+  85%,100%{ opacity:0; transform:translateX(40px); }
+}
+
+/* Trans B — scale up from dot */
+.trans-b {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+
+.tb-logo {
+  display: flex; align-items: baseline;
+  animation: scaleFromDot 2.4s cubic-bezier(.34,1.56,.64,1) infinite;
+  transform-origin: center center;
+}
+
+@keyframes scaleFromDot {
+  0%,15%  { opacity:0; transform:scale(0.2); filter:blur(8px); }
+  30%,70% { opacity:1; transform:scale(1);   filter:blur(0); }
+  85%,100%{ opacity:0; transform:scale(1.1); filter:blur(4px); }
+}
+
+/* Trans C — character stagger */
+.trans-c {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+
+.tc-r    { font-family:'Chivo',sans-serif;font-weight:900;font-size:52px;color:var(--blue);letter-spacing:-0.04em; animation:charIn 2.4s ease infinite; }
+.tc-y    { font-family:'Chivo',sans-serif;font-weight:900;font-size:52px;color:var(--white);letter-spacing:-0.04em; animation:charIn 2.4s ease infinite; animation-delay:.08s; }
+.tc-v    { font-family:'Chivo',sans-serif;font-weight:900;font-size:52px;color:var(--white);letter-spacing:-0.04em; animation:charIn 2.4s ease infinite; animation-delay:.16s; }
+.tc-o    { font-family:'Chivo',sans-serif;font-weight:900;font-size:52px;color:var(--white);letter-spacing:-0.04em; animation:charIn 2.4s ease infinite; animation-delay:.24s; }
+.tc-dot  { width:8px;height:8px;border-radius:50%;background:var(--blue);margin-left:2px;margin-bottom:10px;flex-shrink:0; animation:charIn 2.4s ease infinite; animation-delay:.36s; }
+
+@keyframes charIn {
+  0%,10%   { opacity:0; transform:translateY(16px); }
+  25%,65%  { opacity:1; transform:translateY(0); }
+  80%,100% { opacity:0; transform:translateY(-8px); }
+}
+
+/* Trans D — horizontal wipe reveal */
+.trans-d {
+  height: 160px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; position: relative;
+}
+
+.td-logo {
+  display: flex; align-items: baseline;
+  position: relative;
+}
+.td-r   { font-family:'Chivo',sans-serif;font-weight:900;font-size:52px;color:var(--blue);letter-spacing:-0.04em; }
+.td-yvo { font-family:'Chivo',sans-serif;font-weight:900;font-size:52px;color:var(--white);letter-spacing:-0.04em; }
+.td-d   { width:8px;height:8px;border-radius:50%;background:var(--blue);margin-left:2px;margin-bottom:10px;flex-shrink:0; }
+
+/* mask wipe */
+.td-mask {
+  position: absolute;
+  inset: 0;
+  background: var(--ink);
+  animation: wipeMask 2.4s ease infinite;
+  transform-origin: left center;
+}
+
+@keyframes wipeMask {
+  0%,5%   { transform:scaleX(1); }
+  35%,65% { transform:scaleX(0); }
+  95%,100%{ transform:scaleX(0); }
+}
+
+/* ========================
+   04 SCROLL / PAGE ENTRANCE
+======================== */
+
+.scroll-demo {
+  background: #111;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 300px;
+  position: relative;
+  border: 1px solid rgba(255,255,255,.06);
+}
+
+/* simulated nav bar that animates in */
+.demo-nav {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 60px;
+  background: rgba(13,13,13,.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  display: flex; align-items: center;
+  padding: 0 28px; justify-content: space-between;
+  animation: navSlideDown 0.6s cubic-bezier(.16,1,.3,1) 0.2s both;
+  transform: translateY(-60px);
+}
+
+@keyframes navSlideDown {
+  from { transform: translateY(-60px); opacity:0; }
+  to   { transform: translateY(0); opacity:1; }
+}
+
+.demo-hero-text {
+  position: absolute;
+  top: 50%; left: 28px;
+  transform: translateY(-50%);
+  margin-top: 20px;
+}
+
+.dht-eyebrow {
+  font-size: 10px; font-weight: 600; color: var(--blue);
+  letter-spacing: .25em; text-transform: uppercase;
+  opacity: 0;
+  animation: fadeUp 0.5s ease 0.7s both;
+}
+
+.dht-h1 {
+  font-family: 'Figtree', sans-serif; font-weight: 900;
+  font-size: 32px; letter-spacing: -.03em; line-height: 1.1;
+  color: var(--white); margin-top: 8px;
+  opacity: 0;
+  animation: fadeUp 0.6s cubic-bezier(.16,1,.3,1) 0.85s both;
+}
+
+.dht-h1 span { color: var(--blue); }
+
+.dht-sub {
+  font-size: 12px; color: rgba(255,255,255,.4); margin-top: 10px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease 1.05s both;
+}
+
+.demo-cta {
+  position: absolute; bottom: 28px; left: 28px;
+  background: var(--blue);
+  padding: 10px 22px;
+  border-radius: 100px;
+  font-size: 12px; font-weight: 700; color: white;
+  opacity: 0;
+  animation: fadeUp 0.5s ease 1.2s both;
+}
+
+/* ========================
+   05 MICRO-INTERACTIONS
+======================== */
+
+/* Hover: button pulse */
+.btn-demo {
+  background: var(--blue);
+  padding: 14px 32px; border-radius: 100px;
+  font-size: 13px; font-weight: 700; color: white;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+  border: none; outline: none;
+  position: relative; overflow: hidden;
+}
+
+.btn-demo::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(255,255,255,.15);
+  opacity: 0;
+  transform: scale(0);
+  border-radius: 100px;
+  transition: transform .4s ease, opacity .4s ease;
+}
+
+.btn-demo:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(37,99,235,.5);
+}
+
+.btn-demo:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.btn-demo:active { transform: scale(.97); }
+
+/* dot pulse hover */
+.dot-hover {
+  width: 14px; height: 14px;
+  border-radius: 50%; background: var(--blue);
+  cursor: pointer;
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
+}
+.dot-hover:hover {
+  transform: scale(1.5);
+  box-shadow: 0 0 0 5px rgba(37,99,235,.2);
+}
+
+/* wordmark hover — r brightens */
+.wm-hover {
+  display: flex; align-items: baseline; cursor: pointer;
+}
+.wm-hover .lr2 {
+  font-family:'Chivo',sans-serif; font-weight:900; font-size:48px;
+  color: var(--blue); letter-spacing:-0.04em;
+  transition: color .2s ease, transform .2s ease;
+}
+.wm-hover .lyvo2 {
+  font-family:'Chivo',sans-serif; font-weight:900; font-size:48px;
+  color: rgba(255,255,255,.4); letter-spacing:-0.04em;
+  transition: color .2s ease;
+}
+.wm-hover .ldot2 {
+  width:8px; height:8px; border-radius:50%; background:var(--blue);
+  margin-left:2px; margin-bottom:9px; flex-shrink:0;
+  transition: transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease;
+}
+.wm-hover:hover .lyvo2 { color: rgba(255,255,255,1); }
+.wm-hover:hover .lr2   { transform: translateX(-2px); }
+.wm-hover:hover .ldot2 {
+  transform: scale(1.4);
+  box-shadow: 0 0 0 4px rgba(37,99,235,.25);
+}
+
+/* ========================
+   06 SPEED PRINCIPLES
+======================== */
+
+.principles {
+  display: grid; grid-template-columns: repeat(4,1fr); gap: 10px;
+}
+@media(max-width:700px){ .principles { grid-template-columns:repeat(2,1fr); } }
+
+.principle-card {
+  background: #161616;
+  border: 1px solid rgba(255,255,255,.06);
+  border-radius: 16px;
+  padding: 22px 20px;
+}
+
+.pc-num {
+  font-size: 11px; font-weight: 700; color: var(--blue);
+  letter-spacing: .15em; margin-bottom: 12px;
+}
+
+.pc-title {
+  font-size: 13px; font-weight: 700; color: var(--white);
+  margin-bottom: 6px;
+}
+
+.pc-desc {
+  font-size: 11px; color: var(--slate); line-height: 1.6;
+}
+
+.pc-curve {
+  height: 40px; margin-top: 14px; overflow: hidden;
+}
+
+/* ========================
+   07 DARK + LIGHT MODE MOTION
+======================== */
+
+.mode-toggle-demo {
+  height: 200px;
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  animation: modeSwitch 4s ease infinite;
+}
+
+@keyframes modeSwitch {
+  0%,40%  { background: var(--ink); }
+  50%,90% { background: var(--paper); }
+  100%    { background: var(--ink); }
+}
+
+.ms-logo {
+  display: flex; align-items: baseline; position: relative; z-index: 2;
+  animation: modeSwitchLogo 4s ease infinite;
+}
+
+.ms-r {
+  font-family:'Chivo',sans-serif; font-weight:900; font-size:64px;
+  color:var(--blue); letter-spacing:-0.04em;
+}
+
+.ms-yvo {
+  font-family:'Chivo',sans-serif; font-weight:900; font-size:64px;
+  letter-spacing:-0.04em;
+  animation: modeSwitchText 4s ease infinite;
+}
+
+@keyframes modeSwitchText {
+  0%,40%  { color: var(--white); }
+  50%,90% { color: var(--ink); }
+  100%    { color: var(--white); }
+}
+
+.ms-dot {
+  width: 10px; height: 10px; border-radius: 50%; background: var(--blue);
+  margin-left: 3px; margin-bottom: 13px; flex-shrink: 0;
+}
+
+/* GENERAL */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(14px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>Ryvo — Motion Identity</h1>
+      <p>Splash · Loading · Transitions · Scroll entrance · Micro-interactions · Principles</p>
+    </div>
+    <div class="h-pills">
+      <span class="pill pb">Live Animations</span>
+      <span class="pill pk">7 sections</span>
+    </div>
+  </div>
+
+  <!-- ============================
+       01 SPLASH / INTRO
+  ============================ -->
+  <div class="sec">
+    <div class="sh"><span class="sn">01</span><span class="st">App Splash — Logo Reveal</span><div class="sl"></div></div>
+
+    <div class="splash" onclick="restartSplash(this)">
+      <!-- ambient glow -->
+      <div style="position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(37,99,235,.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none"></div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:0">
+        <div class="splash-logo" id="splash-logo">
+          <span class="sl-r">r</span>
+          <span class="sl-yvo">yvo</span>
+          <div class="sl-dot"></div>
+        </div>
+        <div class="splash-sweep" id="splash-sweep"></div>
+        <div class="splash-tagline" id="splash-tagline">vehicle rentals</div>
+      </div>
+
+      <div class="splash-restart" onclick="restartSplash(this.parentElement)">↺ replay</div>
+    </div>
+
+    <div style="margin-top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+      <div style="background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px">Sequence</div>
+        <div style="font-size:11px;color:var(--slate);line-height:1.8">
+          300ms delay →<br>
+          r slides in (500ms) →<br>
+          yvo slides in (500ms) →<br>
+          dot pops (400ms) →<br>
+          sweep line (600ms) →<br>
+          tagline fades (600ms)
+        </div>
+      </div>
+      <div style="background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px">Easing</div>
+        <div style="font-size:11px;color:var(--slate);line-height:1.8">
+          r + yvo: cubic-bezier<br>(.16, 1, .3, 1)<br>— fast out, soft land<br><br>
+          dot: cubic-bezier<br>(.34, 1.56, .64, 1)<br>— spring bounce
+        </div>
+      </div>
+      <div style="background:#161616;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 16px">
+        <div style="font-size:10px;font-weight:700;color:var(--blue);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px">Total Duration</div>
+        <div style="font-size:11px;color:var(--slate);line-height:1.8">
+          1.8s full reveal<br>
+          Hold 0.4s<br>
+          Transition out 0.3s<br><br>
+          Total: <strong style="color:var(--white)">~2.5s</strong><br>
+          Skip on tap
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       02 LOADING STATES
+  ============================ -->
+  <div class="sec">
+    <div class="sh"><span class="sn">02</span><span class="st">Loading States</span><div class="sl"></div></div>
+    <div class="g4">
+
+      <!-- A: dot to bar -->
+      <div class="card">
+        <div class="cv" style="height:160px;">
+          <div class="load-a" style="width:100%">
+            <div class="la-dot"></div>
+          </div>
+        </div>
+        <div class="meta">
+          <div><div class="mn">Dot → Bar</div><div class="ms">Dot expands into line</div></div>
+          <span class="tag tb">App load</span>
+        </div>
+      </div>
+
+      <!-- B: racing dots -->
+      <div class="card">
+        <div class="cv" style="height:160px;">
+          <div class="load-b" style="width:100%">
+            <div class="lb-dot"></div>
+            <div class="lb-dot"></div>
+            <div class="lb-dot"></div>
+          </div>
+        </div>
+        <div class="meta">
+          <div><div class="mn">Racing Dots</div><div class="ms">3 dots, staggered</div></div>
+          <span class="tag tg">Content load</span>
+        </div>
+      </div>
+
+      <!-- C: shimmer wordmark -->
+      <div class="card">
+        <div class="cv" style="height:160px;">
+          <div class="load-c" style="width:100%">
+            <div class="lc-logo">
+              <span class="lc-r">r</span>
+              <span class="lc-yvo" style="color:rgba(255,255,255,.4)">yvo</span>
+              <div class="lc-dot"></div>
+              <div class="lc-shimmer"></div>
+            </div>
+          </div>
+        </div>
+        <div class="meta">
+          <div><div class="mn">Shimmer Wordmark</div><div class="ms">Gloss sweep on logo</div></div>
+          <span class="tag ts">Skeleton</span>
+        </div>
+      </div>
+
+      <!-- D: progress bar -->
+      <div class="card">
+        <div class="cv" style="height:160px;">
+          <div class="load-d" style="width:100%">
+            <div class="ld-logo">
+              <span class="lr" style="font-size:36px">r</span>
+              <span class="lyvo" style="font-size:36px;color:rgba(255,255,255,.5)">yvo</span>
+              <div class="ldot" style="width:6px;height:6px;margin-left:2px;margin-bottom:7px"></div>
+            </div>
+            <div class="ld-bar-track">
+              <div class="ld-bar-fill"></div>
+            </div>
+          </div>
+        </div>
+        <div class="meta">
+          <div><div class="mn">Progress Line</div><div class="ms">Below wordmark</div></div>
+          <span class="tag ts">Splash exit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================
+       03 LOGO TRANSITIONS
+  ============================ -->
+  <div class="sec">
+    <div class="sh"><span class="sn">03</span><span class="st">Logo Transition Styles</span><div class="sl"></div></div>
+    <div class="g4">
+
+      <!-- Slide from left -->
+      <div class="card">
+        <div class="cv" style="height:160px">
+          <div class="trans-a" style="width:100%">
+            <div class="ta-logo">
+              <span class="lr" style="font-size:44px">r</span>
+              <span class="lyvo" style="font-size:44px">yvo</span>
+              <div class="ldot" style="width:7px;height:7px;margin-left:2px;margin-bottom:8px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="meta"><div><div class="mn">Slide In</div><div class="ms">Left → center → right out</div></div><span class="tag tb">Nav entry</span></div>
+      </div>
+
+      <!-- Scale from dot -->
+      <div class="card">
+        <div class="cv" style="height:160px">
+          <div class="trans-b" style="width:100%">
+            <div class="tb-logo">
+              <span class="lr" style="font-size:44px">r</span>
+              <span class="lyvo" style="font-size:44px">yvo</span>
+              <div class="ldot" style="width:7px;height:7px;margin-left:2px;margin-bottom:8px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="meta"><div><div class="mn">Scale + Blur</div><div class="ms">Dot → full logo</div></div><span class="tag tg">Splash</span></div>
+      </div>
+
+      <!-- Character stagger -->
+      <div class="card">
+        <div class="cv" style="height:160px">
+          <div class="trans-c" style="width:100%">
+            <span class="tc-r">r</span>
+            <span class="tc-y">y</span>
+            <span class="tc-v">v</span>
+            <span class="tc-o">o</span>
+            <div class="tc-dot"></div>
+          </div>
+        </div>
+        <div class="meta"><div><div class="mn">Char Stagger</div><div class="ms">Each letter drops in</div></div><span class="tag tb">Onboarding</span></div>
+      </div>
+
+      <!-- Wipe reveal -->
+      <div class="card">
+        <div class="cv" style="height:160px">
+          <div class="trans-d" style="width:100%">
+            <div class="td-logo">
+              <span class="td-r" style="font-size:44px">r</span>
+              <span class="td-yvo" style="font-size:44px">yvo</span>
+              <div class="td-d" style="width:7px;height:7px;margin-bottom:8px"></div>
+              <div class="td-mask"></div>
+            </div>
+          </div>
+        </div>
+        <div class="meta"><div><div class="mn">Wipe Reveal</div><div class="ms">Mask slides off</div></div><span class="tag ts">Page transition</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================
+       04 PAGE ENTRANCE
+  ============================ -->
+  <div class="sec">
+    <div class="sh"><span class="sn">04</span><span class="st">Web Page Entrance — Staggered Reveal</span><div class="sl"></div></div>
+
+    <div class="scroll-demo" id="scroll-demo">
+      <div class="demo-nav">
+        <div style="display:flex;align-items:baseline">
+          <span class="lr" style="font-size:22px">r</span>
+          <span class="lyvo" style="font-size:22px">yvo</span>
+          <div class="ldot" style="width:4px;height:4px;margin-left:2px;margin-bottom:4px"></div>
+        </div>
+        <div style="display:flex;gap:20px">
+          <span style="font-size:11px;color:rgba(255,255,255,.4)">Explore</span>
+          <span style="font-size:11px;color:rgba(255,255,255,.4)">How it works</span>
+        </div>
+        <div style="background:var(--blue);padding:7px 18px;border-radius:100px;font-size:11px;font-weight:700;color:white">Book now</div>
+      </div>
+      <div class="demo-hero-text">
+        <div class="dht-eyebrow">Self-drive · Peer-to-peer</div>
+        <div class="dht-h1">Your ride,<br><span>your rules.</span></div>
+        <div class="dht-sub">Cars and bikes on demand, wherever you go.</div>
+      </div>
+      <div class="demo-cta">Explore cars →</div>
+    </div>
+
+    <div style="margin-top:10px;text-align:right">
+      <button onclick="restartScrollDemo()" style="background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.4);padding:7px 16px;border-radius:100px;font-size:11px;cursor:pointer;font-family:'Manrope',sans-serif;letter-spacing:.05em">↺ Replay entrance</button>
+    </div>
+  </div>
+
+  <!-- ============================
+       05 MICRO-INTERACTIONS
+  ============================ -->
+  <div class="sec">
+    <div class="sh"><span class="sn">05</span><span class="st">Micro-Interactions — Hover & Tap</span><div class="sl"></div></div>
+    <div class="g3">
+
+      <div class="card">
+        <div class="cv" style="height:160px;flex-direction:column;gap:20px">
+          <div class="wm-hover">
+            <span class="lr2">r</span>
+            <span class="lyvo2">yvo</span>
+            <div class="ldot2"></div>
+          </div>
+          <div style="font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.1em">hover over the logo</div>
+        </div>
+        <div class="meta"><div><div class="mn">Wordmark Hover</div><div class="ms">yvo reveals · dot pulses</div></div><span class="tag tb">Web nav</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cv" style="height:160px;flex-direction:column;gap:20px">
+          <button class="btn-demo">Book a car</button>
+          <div style="font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.1em">hover the button</div>
+        </div>
+        <div class="meta"><div><div class="mn">CTA Button</div><div class="ms">Lift + ripple + glow</div></div><span class="tag tg">All CTAs</span></div>
+      </div>
+
+      <div class="card">
+        <div class="cv" style="height:160px;flex-direction:column;gap:20px">
+          <div class="dot-hover"></div>
+          <div style="font-size:10px;color:rgba(255,255,255,.2);letter-spacing:.1em">hover the dot</div>
+        </div>
+        <div class="meta"><div><div class="mn">Signal Dot</div><div class="ms">Spring scale + ring</div></div><span class="tag ts">Logo element</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================
+       06 DARK ↔ LIGHT
+  ============================ -->
+  <div class="sec">
+    <div class="sh"><span class="sn">06</span><span class="st">Dark ↔ Light Mode Transition</span><div class="sl"></div></div>
+    <div class="mode-toggle-demo">
+      <div style="position:absolute;bottom:20px;font-size:10px;color:rgba(100,116,139,.6);letter-spacing:.1em;text-transform:uppercase">auto-cycling · dark ↔ light</div>
+      <div class="ms-logo">
+        <span class="ms-r">r</span>
+        <span class="ms-yvo">yvo</span>
+        <div class="ms-dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       07 MOTION PRINCIPLES
+  ============================ -->
+  <div class="sec">
+    <div class="sh"><span class="sn">07</span><span class="st">Motion Principles</span><div class="sl"></div></div>
+    <div class="principles">
+
+      <div class="principle-card">
+        <div class="pc-num">01</div>
+        <div class="pc-title">Fast out, soft land</div>
+        <div class="pc-desc">Everything accelerates quickly then eases to rest. Never a linear move. cubic-bezier(.16,1,.3,1)</div>
+        <div class="pc-curve">
+          <svg viewBox="0 0 80 40" fill="none" width="100%" height="40">
+            <path d="M4 36 C8 36 10 4 76 4" stroke="#2563EB" stroke-width="2" fill="none"/>
+            <circle cx="76" cy="4" r="3" fill="#2563EB"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="principle-card">
+        <div class="pc-num">02</div>
+        <div class="pc-title">Spring for the dot</div>
+        <div class="pc-desc">The signal dot always overshoots slightly — it's alive. cubic-bezier(.34,1.56,.64,1)</div>
+        <div class="pc-curve">
+          <svg viewBox="0 0 80 40" fill="none" width="100%" height="40">
+            <path d="M4 36 C20 36 30 0 50 2 C62 3 70 8 76 8" stroke="#2563EB" stroke-width="2" fill="none"/>
+            <circle cx="76" cy="8" r="3" fill="#2563EB"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="principle-card">
+        <div class="pc-num">03</div>
+        <div class="pc-title">Stagger everything</div>
+        <div class="pc-desc">Never animate two things at once. Offset by 80–120ms. Creates rhythm, not chaos.</div>
+        <div class="pc-curve">
+          <svg viewBox="0 0 80 40" fill="none" width="100%" height="40">
+            <rect x="4"  y="28" width="16" height="8" rx="2" fill="#2563EB" opacity=".4"/>
+            <rect x="24" y="20" width="16" height="16" rx="2" fill="#2563EB" opacity=".6"/>
+            <rect x="44" y="12" width="16" height="24" rx="2" fill="#2563EB" opacity=".8"/>
+            <rect x="64" y="4"  width="12" height="32" rx="2" fill="#2563EB"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="principle-card">
+        <div class="pc-num">04</div>
+        <div class="pc-title">Never block intent</div>
+        <div class="pc-desc">All animations skippable. Max 300ms for UI. Splash is the only exception (1.8s).</div>
+        <div class="pc-curve">
+          <svg viewBox="0 0 80 40" fill="none" width="100%" height="40">
+            <line x1="4" y1="36" x2="76" y2="4" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="40" cy="20" r="5" fill="#2563EB" opacity=".3"/>
+            <circle cx="40" cy="20" r="3" fill="#2563EB"/>
+            <line x1="37" y1="17" x2="43" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="43" y1="17" x2="37" y2="23" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="border-top:1px solid rgba(255,255,255,.07);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <div style="font-size:12px;color:var(--slate);line-height:1.8;max-width:540px">
+      <strong style="color:var(--white)">Ryvo Motion Identity</strong> — 7 animation systems, all live in browser.<br>
+      Core principle: motion should feel like <span style="color:#93C5FD">acceleration</span> — fast start, smooth landing, spring dot.
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.15);letter-spacing:.1em">ryvo · motion · 2026</div>
+  </div>
+
+</div>
+
+<script>
+function restartSplash(el) {
+  const logo = document.querySelector('.splash-logo');
+  const sweep = document.querySelector('.splash-sweep');
+  const tag = document.querySelector('.splash-tagline');
+
+  [logo, sweep, tag].forEach(e => {
+    if (!e) return;
+    e.style.animation = 'none';
+    void e.offsetWidth;
+  });
+
+  const r = logo.querySelector('.sl-r');
+  const yvo = logo.querySelector('.sl-yvo');
+  const dot = logo.querySelector('.sl-dot');
+
+  [r, yvo, dot].forEach(e => {
+    if (!e) return;
+    e.style.animation = 'none';
+    void e.offsetWidth;
+  });
+
+  setTimeout(() => {
+    r.style.animation   = 'splashR 0.5s cubic-bezier(.16,1,.3,1) 0.3s both';
+    yvo.style.animation = 'splashYVO 0.5s cubic-bezier(.16,1,.3,1) 0.55s both';
+    dot.style.animation = 'splashDot 0.4s cubic-bezier(.34,1.56,.64,1) 0.9s both';
+    sweep.style.animation = 'sweepLine 0.6s ease 1.0s both';
+    tag.style.animation   = 'fadeInTag 0.6s ease 1.2s both';
+  }, 20);
+}
+
+function restartScrollDemo() {
+  const demo = document.getElementById('scroll-demo');
+  const nav = demo.querySelector('.demo-nav');
+  const eyebrow = demo.querySelector('.dht-eyebrow');
+  const h1 = demo.querySelector('.dht-h1');
+  const sub = demo.querySelector('.dht-sub');
+  const cta = demo.querySelector('.demo-cta');
+
+  [nav, eyebrow, h1, sub, cta].forEach(e => {
+    if (!e) return;
+    e.style.animation = 'none';
+    void e.offsetWidth;
+  });
+
+  setTimeout(() => {
+    nav.style.animation     = 'navSlideDown 0.6s cubic-bezier(.16,1,.3,1) 0.2s both';
+    eyebrow.style.animation = 'fadeUp 0.5s ease 0.7s both';
+    h1.style.animation      = 'fadeUp 0.6s cubic-bezier(.16,1,.3,1) 0.85s both';
+    sub.style.animation     = 'fadeUp 0.5s ease 1.05s both';
+    cta.style.animation     = 'fadeUp 0.5s ease 1.2s both';
+  }, 20);
+}
+</script>
+</body>
+</html>

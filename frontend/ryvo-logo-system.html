@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryvo — Complete Logo System</title>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:ital,wght@0,100;0,300;0,900;1,900&family=Figtree:wght@400;600;700;800;900&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0D0D0D;
+  --paper: #F5F2EE;
+  --blue: #2563EB;
+  --blue-light: #DBEAFE;
+  --slate: #64748B;
+  --warm: #E8E4DC;
+  --white: #ffffff;
+  --off: #FAFAF8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #ECEAE5;
+  font-family: 'Manrope', sans-serif;
+  color: var(--ink);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(13,13,13,0.055) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 52px 28px 100px;
+}
+
+/* TOP HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 52px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(13,13,13,0.1);
+  animation: up 0.6s ease both;
+}
+
+.header h1 {
+  font-family: 'Figtree', sans-serif;
+  font-size: clamp(22px,4vw,30px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.header p {
+  font-size: 12px;
+  color: var(--slate);
+  margin-top: 4px;
+}
+
+.h-pills { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+
+.pill {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.p-blue { background: rgba(37,99,235,0.1); color: var(--blue); }
+.p-ink  { background: rgba(13,13,13,0.07); color: var(--ink); }
+
+/* SECTION */
+.sec { margin-bottom: 64px; animation: up 0.6s ease both; }
+.sec:nth-child(2){animation-delay:.05s}
+.sec:nth-child(3){animation-delay:.10s}
+.sec:nth-child(4){animation-delay:.15s}
+.sec:nth-child(5){animation-delay:.20s}
+.sec:nth-child(6){animation-delay:.25s}
+.sec:nth-child(7){animation-delay:.30s}
+.sec:nth-child(8){animation-delay:.35s}
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.sec-n { font-size: 10px; font-weight: 700; color: var(--blue); letter-spacing: 0.2em; }
+.sec-t { font-size: 11px; font-weight: 600; color: var(--slate); letter-spacing: 0.18em; text-transform: uppercase; }
+.sec-line { flex:1; height:1px; background:rgba(13,13,13,0.08); }
+
+/* GRIDS */
+.g2 { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; }
+.g3 { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.g4 { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.g5 { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+.g32 { display:grid; grid-template-columns:2fr 1fr; gap:12px; }
+.g23 { display:grid; grid-template-columns:1fr 2fr; gap:12px; }
+
+@media(max-width:700px){ .g4,.g5{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(2,1fr)} .g32,.g23{grid-template-columns:1fr} }
+@media(max-width:440px){ .g2,.g4,.g5,.g3{grid-template-columns:1fr} }
+
+/* BASE LOGO MIXIN */
+.logo {
+  display: flex;
+  align-items: baseline;
+}
+.logo .r  { font-family:'Chivo',sans-serif; font-weight:900; letter-spacing:-0.04em; color:var(--blue); }
+.logo .yvo{ font-family:'Chivo',sans-serif; font-weight:900; letter-spacing:-0.04em; }
+.logo .dot{ border-radius:50%; flex-shrink:0; background:var(--blue); }
+
+/* CARD */
+.card {
+  border-radius:18px;
+  overflow:hidden;
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.card:hover { transform:translateY(-3px); box-shadow:0 16px 40px rgba(0,0,0,0.12); }
+
+.canvas {
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden; padding:24px;
+}
+
+.meta {
+  padding:12px 16px;
+  display:flex; justify-content:space-between; align-items:center;
+  border-top:1px solid rgba(0,0,0,0.05);
+}
+.meta-bg-w  { background:var(--white); }
+.meta-bg-off{ background:var(--off); }
+
+.m-name { font-size:11px; font-weight:700; color:var(--ink); }
+.m-note { font-size:10px; color:var(--slate); margin-top:1px; }
+
+.tag {
+  font-size:9px; font-weight:700; letter-spacing:.08em;
+  padding:3px 8px; border-radius:100px;
+}
+.tg { background:rgba(34,197,94,.1); color:#16a34a; }
+.tw { background:rgba(239,68,68,.1); color:#dc2626; }
+.tb { background:rgba(37,99,235,.1); color:var(--blue); }
+.ts { background:rgba(13,13,13,.06); color:var(--ink); }
+
+/* ========================
+   SECTION 1: MASTER LOGO
+======================== */
+.master-card {
+  border-radius:22px;
+  padding:64px 48px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; overflow:hidden;
+  background:var(--white);
+  border:1px solid rgba(0,0,0,0.07);
+  min-height:200px;
+}
+
+.master-card::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(37,99,235,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(37,99,235,0.03) 1px,transparent 1px);
+  background-size:32px 32px;
+  pointer-events:none;
+}
+
+/* ========================
+   SECTION 2: BG COMPAT
+======================== */
+
+/* ========================
+   SECTION 3: SIZE SYSTEM
+======================== */
+.sizes-card {
+  background:var(--ink);
+  border-radius:20px;
+  padding:36px 40px;
+  display:flex;
+  align-items:flex-end;
+  gap:36px;
+  flex-wrap:wrap;
+}
+
+.size-item {
+  display:flex; flex-direction:column; align-items:flex-start; gap:8px;
+}
+
+/* ========================
+   SECTION 4: APP USAGE
+======================== */
+
+/* ========================
+   SECTION 5: WEB HEADER
+======================== */
+.navbar {
+  border-radius:16px;
+  padding:0 28px;
+  height:64px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:relative; overflow:hidden;
+}
+
+.nav-links {
+  display:flex; gap:24px;
+}
+
+.nav-link {
+  font-size:12px; font-weight:500; letter-spacing:0.02em;
+}
+
+.nav-cta {
+  font-size:12px; font-weight:700;
+  padding:8px 18px;
+  border-radius:100px;
+}
+
+/* ========================
+   SECTION 6: VEHICLE WRAP
+======================== */
+
+/* ========================
+   SECTION 7: POSTER / BANNER
+======================== */
+
+/* ========================
+   SECTION 8: CLEAR SPACE + RULES
+======================== */
+
+@keyframes up {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>Ryvo — Complete Logo System</h1>
+      <p>All backgrounds · App · Web · Vehicle · Banners · Posters · Monochrome</p>
+    </div>
+    <div class="h-pills">
+      <span class="pill p-blue">Chivo 900</span>
+      <span class="pill p-ink">r in Signal Blue</span>
+      <span class="pill p-blue">9 sections</span>
+    </div>
+  </div>
+
+  <!-- ============================
+       01 MASTER LOGO
+  ============================= -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-n">01</span>
+      <span class="sec-t">Master Logo — The Definitive Version</span>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="master-card">
+      <div style="text-align:center">
+        <div class="logo" style="justify-content:center">
+          <span class="r" style="font-size:80px">r</span>
+          <span class="yvo" style="font-size:80px;color:var(--ink)">yvo</span>
+          <div class="dot" style="width:12px;height:12px;margin-left:4px;margin-bottom:16px"></div>
+        </div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:var(--slate);margin-top:8px">vehicle rentals</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px">
+      <div style="background:var(--white);border:1px solid rgba(0,0,0,0.07);border-radius:12px;padding:14px 18px;">
+        <div style="font-size:10px;font-weight:700;color:var(--slate);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px">Wordmark</div>
+        <div style="font-size:12px;color:var(--ink);line-height:1.7">Chivo 900 · lowercase<br><span style="color:var(--blue)">r</span> = Signal Blue #2563EB<br>yvo = Ink #0D0D0D</div>
+      </div>
+      <div style="background:var(--white);border:1px solid rgba(0,0,0,0.07);border-radius:12px;padding:14px 18px;">
+        <div style="font-size:10px;font-weight:700;color:var(--slate);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px">Signal Dot</div>
+        <div style="font-size:12px;color:var(--ink);line-height:1.7">Always Signal Blue<br>Diameter = 15% of cap-height<br>Superscript position</div>
+      </div>
+      <div style="background:var(--white);border:1px solid rgba(0,0,0,0.07);border-radius:12px;padding:14px 18px;">
+        <div style="font-size:10px;font-weight:700;color:var(--slate);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px">Clear Space</div>
+        <div style="font-size:12px;color:var(--ink);line-height:1.7">Min = height of "r"<br>on all four sides<br>Never crowd</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       02 BACKGROUND COMPATIBILITY
+  ============================= -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-n">02</span>
+      <span class="sec-t">Background Compatibility</span>
+      <div class="sec-line"></div>
+    </div>
+
+    <div class="g4" style="margin-bottom:12px">
+
+      <!-- White bg -->
+      <div class="card">
+        <div class="canvas" style="background:var(--white);height:140px;border:1px solid rgba(0,0,0,0.06)">
+          <div class="logo">
+            <span class="r" style="font-size:48px">r</span>
+            <span class="yvo" style="font-size:48px;color:var(--ink)">yvo</span>
+            <div class="dot" style="width:8px;height:8px;margin-left:3px;margin-bottom:9px"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">White</div><div class="m-note">#FFFFFF</div></div>
+          <span class="tag tg">✓ Primary</span>
+        </div>
+      </div>
+
+      <!-- Paper bg -->
+      <div class="card">
+        <div class="canvas" style="background:var(--paper);height:140px;">
+          <div class="logo">
+            <span class="r" style="font-size:48px">r</span>
+            <span class="yvo" style="font-size:48px;color:var(--ink)">yvo</span>
+            <div class="dot" style="width:8px;height:8px;margin-left:3px;margin-bottom:9px"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Paper</div><div class="m-note">#F5F2EE</div></div>
+          <span class="tag tg">✓ Primary</span>
+        </div>
+      </div>
+
+      <!-- Warm bg -->
+      <div class="card">
+        <div class="canvas" style="background:var(--warm);height:140px;">
+          <div class="logo">
+            <span class="r" style="font-size:48px">r</span>
+            <span class="yvo" style="font-size:48px;color:var(--ink)">yvo</span>
+            <div class="dot" style="width:8px;height:8px;margin-left:3px;margin-bottom:9px"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Warm Tint</div><div class="m-note">#E8E4DC</div></div>
+          <span class="tag tg">✓ Good</span>
+        </div>
+      </div>
+
+      <!-- Blue-light bg -->
+      <div class="card">
+        <div class="canvas" style="background:var(--blue-light);height:140px;">
+          <div class="logo">
+            <span class="r" style="font-size:48px">r</span>
+            <span class="yvo" style="font-size:48px;color:var(--ink)">yvo</span>
+            <div class="dot" style="width:8px;height:8px;margin-left:3px;margin-bottom:9px"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Blue Tint</div><div class="m-note">#DBEAFE</div></div>
+          <span class="tag tg">✓ Good</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="g4">
+
+      <!-- Dark bg — white logo -->
+      <div class="card">
+        <div class="canvas" style="background:var(--ink);height:140px;">
+          <div class="logo">
+            <span class="r" style="font-size:48px">r</span>
+            <span class="yvo" style="font-size:48px;color:var(--white)">yvo</span>
+            <div class="dot" style="width:8px;height:8px;margin-left:3px;margin-bottom:9px"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Dark / Ink</div><div class="m-note">r blue · yvo white</div></div>
+          <span class="tag tg">✓ Primary</span>
+        </div>
+      </div>
+
+      <!-- Deep navy -->
+      <div class="card">
+        <div class="canvas" style="background:#0D1B3E;height:140px;">
+          <div class="logo">
+            <span class="r" style="font-size:48px">r</span>
+            <span class="yvo" style="font-size:48px;color:var(--white)">yvo</span>
+            <div class="dot" style="width:8px;height:8px;margin-left:3px;margin-bottom:9px"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Deep Navy</div><div class="m-note">#0D1B3E</div></div>
+          <span class="tag tg">✓ Good</span>
+        </div>
+      </div>
+
+      <!-- Brand blue bg — white only -->
+      <div class="card">
+        <div class="canvas" style="background:var(--blue);height:140px;">
+          <div class="logo">
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:48px;letter-spacing:-0.04em;color:rgba(255,255,255,0.5)">r</span>
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:48px;letter-spacing:-0.04em;color:var(--white)">yvo</span>
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--white);margin-left:3px;margin-bottom:9px;flex-shrink:0"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Brand Blue</div><div class="m-note">r muted · yvo white</div></div>
+          <span class="tag tb">✓ Brand</span>
+        </div>
+      </div>
+
+      <!-- Photo / busy bg -->
+      <div class="card">
+        <div class="canvas" style="background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);height:140px;">
+          <div style="background:rgba(0,0,0,0.35);backdrop-filter:blur(8px);padding:10px 18px;border-radius:10px">
+            <div class="logo">
+              <span class="r" style="font-size:40px">r</span>
+              <span class="yvo" style="font-size:40px;color:var(--white)">yvo</span>
+              <div class="dot" style="width:7px;height:7px;margin-left:2px;margin-bottom:8px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Photo / Busy BG</div><div class="m-note">Use frosted container</div></div>
+          <span class="tag tb">✓ Safe</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DON'TS row -->
+    <div style="margin-top:12px">
+      <div style="font-size:10px;font-weight:700;color:#dc2626;letter-spacing:0.2em;text-transform:uppercase;margin-bottom:10px">— Do Not Use On</div>
+      <div class="g4">
+        <div class="card" style="opacity:0.9">
+          <div class="canvas" style="background:#2563EB;height:100px;position:relative">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 6px,rgba(220,38,38,0.1) 6px,rgba(220,38,38,0.1) 7px)"></div>
+            <div class="logo" style="opacity:0.5">
+              <span class="r" style="font-size:40px">r</span>
+              <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:40px;letter-spacing:-0.04em;color:var(--blue)">yvo</span>
+              <div class="dot" style="width:7px;height:7px;margin-left:2px;margin-bottom:8px"></div>
+            </div>
+          </div>
+          <div class="meta meta-bg-off"><div><div class="m-name">r lost on blue</div></div><span class="tag tw">✗ Avoid</span></div>
+        </div>
+        <div class="card">
+          <div class="canvas" style="background:linear-gradient(90deg,#f97316,#ec4899);height:100px;position:relative">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 6px,rgba(220,38,38,0.1) 6px,rgba(220,38,38,0.1) 7px)"></div>
+            <div class="logo" style="opacity:0.6">
+              <span class="r" style="font-size:40px">r</span>
+              <span class="yvo" style="font-size:40px;color:var(--white)">yvo</span>
+              <div class="dot" style="width:7px;height:7px;margin-left:2px;margin-bottom:8px"></div>
+            </div>
+          </div>
+          <div class="meta meta-bg-off"><div><div class="m-name">Colorful gradient</div></div><span class="tag tw">✗ Avoid</span></div>
+        </div>
+        <div class="card">
+          <div class="canvas" style="background:#e5e7eb;height:100px;position:relative">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 6px,rgba(220,38,38,0.1) 6px,rgba(220,38,38,0.1) 7px)"></div>
+            <div class="logo" style="opacity:0.5">
+              <span class="r" style="font-size:40px;color:#9ca3af">r</span>
+              <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:40px;letter-spacing:-0.04em;color:#9ca3af">yvo</span>
+              <div style="width:7px;height:7px;border-radius:50%;background:#9ca3af;margin-left:2px;margin-bottom:8px;flex-shrink:0"></div>
+            </div>
+          </div>
+          <div class="meta meta-bg-off"><div><div class="m-name">Greyed out</div></div><span class="tag tw">✗ Never</span></div>
+        </div>
+        <div class="card">
+          <div class="canvas" style="background:#fef08a;height:100px;position:relative">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(-45deg,transparent,transparent 6px,rgba(220,38,38,0.1) 6px,rgba(220,38,38,0.1) 7px)"></div>
+            <div class="logo">
+              <span class="r" style="font-size:40px">r</span>
+              <span class="yvo" style="font-size:40px;color:var(--ink)">yvo</span>
+              <div class="dot" style="width:7px;height:7px;margin-left:2px;margin-bottom:8px"></div>
+            </div>
+          </div>
+          <div class="meta meta-bg-off"><div><div class="m-name">Yellow / warm clash</div></div><span class="tag tw">✗ Avoid</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       03 SIZE SYSTEM
+  ============================= -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-n">03</span>
+      <span class="sec-t">Size Scale — Minimum to Hero</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="sizes-card">
+      <div class="size-item">
+        <div class="logo"><span class="r" style="font-size:16px">r</span><span class="yvo" style="font-size:16px;color:#fff">yvo</span><div class="dot" style="width:3px;height:3px;margin-left:1px;margin-bottom:3px"></div></div>
+        <div style="font-size:9px;font-family:monospace;color:rgba(255,255,255,0.25)">16px · min</div>
+      </div>
+      <div class="size-item">
+        <div class="logo"><span class="r" style="font-size:24px">r</span><span class="yvo" style="font-size:24px;color:#fff">yvo</span><div class="dot" style="width:4px;height:4px;margin-left:2px;margin-bottom:5px"></div></div>
+        <div style="font-size:9px;font-family:monospace;color:rgba(255,255,255,0.25)">24px · small</div>
+      </div>
+      <div class="size-item">
+        <div class="logo"><span class="r" style="font-size:36px">r</span><span class="yvo" style="font-size:36px;color:#fff">yvo</span><div class="dot" style="width:6px;height:6px;margin-left:2px;margin-bottom:7px"></div></div>
+        <div style="font-size:9px;font-family:monospace;color:rgba(255,255,255,0.25)">36px · nav</div>
+      </div>
+      <div class="size-item">
+        <div class="logo"><span class="r" style="font-size:52px">r</span><span class="yvo" style="font-size:52px;color:#fff">yvo</span><div class="dot" style="width:9px;height:9px;margin-left:3px;margin-bottom:10px"></div></div>
+        <div style="font-size:9px;font-family:monospace;color:rgba(255,255,255,0.25)">52px · hero</div>
+      </div>
+      <div class="size-item">
+        <div class="logo"><span class="r" style="font-size:80px">r</span><span class="yvo" style="font-size:80px;color:#fff">yvo</span><div class="dot" style="width:13px;height:13px;margin-left:4px;margin-bottom:16px"></div></div>
+        <div style="font-size:9px;font-family:monospace;color:rgba(255,255,255,0.25)">80px · display</div>
+      </div>
+    </div>
+    <div style="margin-top:10px;padding:12px 16px;background:rgba(37,99,235,0.06);border-radius:10px;font-size:11px;color:var(--slate);display:flex;align-items:center;gap:8px">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#2563EB"/><rect x="6.5" y="5.5" width="1" height="5" rx=".5" fill="#2563EB"/><circle cx="7" cy="4" r=".75" fill="#2563EB"/></svg>
+      Minimum recommended size: <strong style="color:var(--ink)">16px</strong>. Below 16px switch to monogram icon only. Dot scales proportionally at 15% of type height.
+    </div>
+  </div>
+
+  <!-- ============================
+       04 APP USAGE
+  ============================= -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-n">04</span>
+      <span class="sec-t">Mobile App — Splash, Nav, Icons</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="g3">
+
+      <!-- Splash screen -->
+      <div class="card">
+        <div class="canvas" style="background:var(--ink);height:280px;flex-direction:column;gap:20px">
+          <!-- phone frame -->
+          <div style="width:130px;height:240px;background:#1a1a1a;border-radius:22px;border:2px solid rgba(255,255,255,0.12);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:var(--ink)"></div>
+            <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:36px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px"></div>
+            <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px">
+              <!-- app icon -->
+              <div style="width:52px;height:52px;background:var(--blue);border-radius:14px;display:flex;align-items:center;justify-content:center">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:28px;color:white;letter-spacing:-0.04em">r</span>
+              </div>
+              <div style="display:flex;align-items:baseline">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:24px;letter-spacing:-0.04em;color:var(--blue)">r</span>
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:24px;letter-spacing:-0.04em;color:white">yvo</span>
+                <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);margin-left:2px;margin-bottom:5px;flex-shrink:0"></div>
+              </div>
+              <div style="font-size:8px;letter-spacing:0.2em;color:rgba(255,255,255,0.3);text-transform:uppercase;font-family:'Manrope',sans-serif">vehicle rentals</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Splash Screen</div><div class="m-note">Icon + wordmark centered</div></div>
+          <span class="tag tg">App</span>
+        </div>
+      </div>
+
+      <!-- App nav bar -->
+      <div class="card">
+        <div class="canvas" style="background:#f8f8f6;height:280px;flex-direction:column;gap:0;align-items:stretch;padding:0">
+          <!-- phone frame -->
+          <div style="width:100%;flex:1;background:var(--paper);position:relative;overflow:hidden">
+            <!-- nav bar -->
+            <div style="background:var(--white);border-bottom:1px solid rgba(0,0,0,0.06);padding:14px 18px;display:flex;align-items:center;justify-content:space-between">
+              <div style="display:flex;align-items:baseline">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:22px;letter-spacing:-0.04em;color:var(--blue)">r</span>
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:22px;letter-spacing:-0.04em;color:var(--ink)">yvo</span>
+                <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);margin-left:2px;margin-bottom:4px;flex-shrink:0"></div>
+              </div>
+              <div style="width:28px;height:28px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center">
+                <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><rect y="0" width="14" height="1.5" rx=".75" fill="white"/><rect y="4" width="10" height="1.5" rx=".75" fill="white"/><rect y="8" width="14" height="1.5" rx=".75" fill="white"/></svg>
+              </div>
+            </div>
+            <!-- fake content -->
+            <div style="padding:16px">
+              <div style="height:12px;background:rgba(0,0,0,0.07);border-radius:6px;width:60%;margin-bottom:8px"></div>
+              <div style="height:8px;background:rgba(0,0,0,0.04);border-radius:4px;width:80%;margin-bottom:6px"></div>
+              <div style="height:8px;background:rgba(0,0,0,0.04);border-radius:4px;width:50%;margin-bottom:16px"></div>
+              <div style="height:80px;background:rgba(37,99,235,0.08);border-radius:12px"></div>
+            </div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">App Navbar</div><div class="m-note">22px · light background</div></div>
+          <span class="tag tg">App</span>
+        </div>
+      </div>
+
+      <!-- App icons -->
+      <div class="card">
+        <div class="canvas" style="background:#1c1c1e;height:280px;flex-direction:column;gap:16px">
+          <div style="font-size:10px;color:rgba(255,255,255,0.3);letter-spacing:0.15em;text-transform:uppercase;font-family:'Manrope',sans-serif;align-self:flex-start">App Icons</div>
+          <div style="display:flex;gap:12px;align-items:flex-end">
+            <!-- 1024 icon -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="width:60px;height:60px;background:var(--blue);border-radius:14px;display:flex;align-items:center;justify-content:center">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:34px;color:white;letter-spacing:-0.04em">r</span>
+              </div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.25);font-family:monospace">1024px</div>
+            </div>
+            <!-- 128 icon -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="width:44px;height:44px;background:var(--blue);border-radius:10px;display:flex;align-items:center;justify-content:center">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:24px;color:white;letter-spacing:-0.04em">r</span>
+              </div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.25);font-family:monospace">128px</div>
+            </div>
+            <!-- 48 icon -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="width:32px;height:32px;background:var(--blue);border-radius:7px;display:flex;align-items:center;justify-content:center">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:18px;color:white;letter-spacing:-0.04em">r</span>
+              </div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.25);font-family:monospace">48px</div>
+            </div>
+            <!-- 16 favicon -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:6px">
+              <div style="width:18px;height:18px;background:var(--blue);border-radius:3px;display:flex;align-items:center;justify-content:center">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:11px;color:white;letter-spacing:-0.04em">r</span>
+              </div>
+              <div style="font-size:9px;color:rgba(255,255,255,0.25);font-family:monospace">16px</div>
+            </div>
+          </div>
+          <!-- notification badge -->
+          <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+            <div style="position:relative;width:40px;height:40px">
+              <div style="width:40px;height:40px;background:var(--blue);border-radius:10px;display:flex;align-items:center;justify-content:center">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:22px;color:white">r</span>
+              </div>
+              <div style="position:absolute;top:-4px;right:-4px;width:14px;height:14px;background:#ef4444;border-radius:50%;border:2px solid #1c1c1e;display:flex;align-items:center;justify-content:center">
+                <span style="font-size:7px;color:white;font-weight:700">3</span>
+              </div>
+            </div>
+            <div style="font-size:10px;color:rgba(255,255,255,0.3);font-family:'Manrope',sans-serif">With notification badge</div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">App Store Icons</div><div class="m-note">1024 → 16px all sizes</div></div>
+          <span class="tag tg">App</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================
+       05 WEB APP HEADER
+  ============================= -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-n">05</span>
+      <span class="sec-t">Web App — Navbar & Header Variants</span>
+      <div class="sec-line"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+
+      <!-- Light nav -->
+      <div style="border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,0.06)">
+        <div class="navbar" style="background:var(--white)">
+          <div class="logo">
+            <span class="r" style="font-size:28px">r</span>
+            <span class="yvo" style="font-size:28px;color:var(--ink)">yvo</span>
+            <div class="dot" style="width:5px;height:5px;margin-left:2px;margin-bottom:5px"></div>
+          </div>
+          <div class="nav-links">
+            <span class="nav-link" style="color:var(--ink)">Explore</span>
+            <span class="nav-link" style="color:var(--slate)">How it works</span>
+            <span class="nav-link" style="color:var(--slate)">List your car</span>
+          </div>
+          <span class="nav-cta" style="background:var(--blue);color:white">Book now</span>
+        </div>
+        <div style="padding:8px 16px;background:var(--off);border-top:1px solid rgba(0,0,0,0.04);font-size:10px;color:var(--slate)">Light navbar — white background</div>
+      </div>
+
+      <!-- Dark nav -->
+      <div style="border-radius:16px;overflow:hidden">
+        <div class="navbar" style="background:var(--ink)">
+          <div class="logo">
+            <span class="r" style="font-size:28px">r</span>
+            <span class="yvo" style="font-size:28px;color:var(--white)">yvo</span>
+            <div class="dot" style="width:5px;height:5px;margin-left:2px;margin-bottom:5px"></div>
+          </div>
+          <div class="nav-links">
+            <span class="nav-link" style="color:rgba(255,255,255,0.5)">Explore</span>
+            <span class="nav-link" style="color:rgba(255,255,255,0.5)">How it works</span>
+            <span class="nav-link" style="color:rgba(255,255,255,0.5)">List your car</span>
+          </div>
+          <span class="nav-cta" style="background:var(--blue);color:white">Book now</span>
+        </div>
+        <div style="padding:8px 16px;background:var(--off);border-top:1px solid rgba(0,0,0,0.04);font-size:10px;color:var(--slate)">Dark navbar — ink background</div>
+      </div>
+
+      <!-- Transparent / hero overlay -->
+      <div style="border-radius:16px;overflow:hidden">
+        <div class="navbar" style="background:linear-gradient(135deg,#0D1B3E,#1e3a6e);position:relative">
+          <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:24px 24px;pointer-events:none"></div>
+          <div class="logo" style="position:relative;z-index:2">
+            <span class="r" style="font-size:28px">r</span>
+            <span class="yvo" style="font-size:28px;color:var(--white)">yvo</span>
+            <div class="dot" style="width:5px;height:5px;margin-left:2px;margin-bottom:5px"></div>
+          </div>
+          <div class="nav-links" style="position:relative;z-index:2">
+            <span class="nav-link" style="color:rgba(255,255,255,0.6)">Explore</span>
+            <span class="nav-link" style="color:rgba(255,255,255,0.6)">How it works</span>
+          </div>
+          <span class="nav-cta" style="background:rgba(255,255,255,0.12);color:white;border:1px solid rgba(255,255,255,0.2);position:relative;z-index:2">Sign in</span>
+        </div>
+        <div style="padding:8px 16px;background:var(--off);border-top:1px solid rgba(0,0,0,0.04);font-size:10px;color:var(--slate)">Hero header overlay — gradient dark bg</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================
+       06 VEHICLE WRAP
+  ============================= -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-n">06</span>
+      <span class="sec-t">Vehicle Wrap & Car Branding</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="g2">
+
+      <!-- Car door mock -->
+      <div class="card">
+        <div class="canvas" style="background:var(--ink);height:220px;padding:0;align-items:stretch">
+          <!-- Car side silhouette mockup -->
+          <div style="width:100%;height:100%;position:relative;overflow:hidden">
+            <!-- car body color -->
+            <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1a1a1a 0%,#111 100%)"></div>
+            <!-- door panel area -->
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70%;display:flex;flex-direction:column;align-items:flex-start;gap:8px">
+              <div style="display:flex;align-items:baseline">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:56px;letter-spacing:-0.04em;color:var(--blue)">r</span>
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:56px;letter-spacing:-0.04em;color:white">yvo</span>
+                <div style="width:9px;height:9px;border-radius:50%;background:var(--blue);margin-left:3px;margin-bottom:11px;flex-shrink:0"></div>
+              </div>
+              <div style="font-size:10px;letter-spacing:0.25em;color:rgba(255,255,255,0.3);text-transform:uppercase;font-family:'Manrope',sans-serif">vehicle rentals</div>
+            </div>
+            <!-- door handle hint -->
+            <div style="position:absolute;right:20%;top:50%;transform:translateY(-50%);width:24px;height:8px;background:rgba(255,255,255,0.1);border-radius:4px"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Car Door Panel</div><div class="m-note">Dark vehicle · white + blue</div></div>
+          <span class="tag tg">Vehicle</span>
+        </div>
+      </div>
+
+      <!-- White car -->
+      <div class="card">
+        <div class="canvas" style="height:220px;padding:0;align-items:stretch">
+          <div style="width:100%;height:100%;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:linear-gradient(160deg,#f0ede8 0%,#e0dcd6 100%)"></div>
+            <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70%;display:flex;flex-direction:column;align-items:flex-start;gap:8px">
+              <div style="display:flex;align-items:baseline">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:56px;letter-spacing:-0.04em;color:var(--blue)">r</span>
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:56px;letter-spacing:-0.04em;color:var(--ink)">yvo</span>
+                <div style="width:9px;height:9px;border-radius:50%;background:var(--blue);margin-left:3px;margin-bottom:11px;flex-shrink:0"></div>
+              </div>
+              <div style="font-size:10px;letter-spacing:0.25em;color:rgba(13,13,13,0.35);text-transform:uppercase;font-family:'Manrope',sans-serif">vehicle rentals</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Car Door Panel</div><div class="m-note">White/light vehicle</div></div>
+          <span class="tag tg">Vehicle</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sticker + number plate style -->
+    <div class="g3" style="margin-top:12px">
+      <div class="card">
+        <div class="canvas" style="background:#f8f8f6;height:100px;border:1px solid rgba(0,0,0,0.07)">
+          <div style="padding:10px 20px;border:1.5px solid var(--ink);border-radius:6px;display:flex;align-items:baseline;gap:0">
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.04em;color:var(--blue)">r</span>
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.04em;color:var(--ink)">yvo</span>
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--blue);margin-left:2px;margin-bottom:5px;flex-shrink:0"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">Sticker / Decal</div><div class="m-note">Bordered version</div></div><span class="tag ts">Sticker</span></div>
+      </div>
+      <div class="card">
+        <div class="canvas" style="background:var(--blue);height:100px;">
+          <div style="display:flex;align-items:baseline">
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:36px;letter-spacing:-0.04em;color:rgba(255,255,255,0.45)">r</span>
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:36px;letter-spacing:-0.04em;color:white">yvo</span>
+            <div style="width:6px;height:6px;border-radius:50%;background:white;margin-left:2px;margin-bottom:7px;flex-shrink:0"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">Blue Sticker</div><div class="m-note">Brand color</div></div><span class="tag tb">Sticker</span></div>
+      </div>
+      <div class="card">
+        <div class="canvas" style="background:var(--ink);height:100px;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:4px">
+            <div style="display:flex;align-items:baseline">
+              <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.04em;color:var(--blue)">r</span>
+              <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.04em;color:white">yvo</span>
+              <div style="width:4px;height:4px;border-radius:50%;background:var(--blue);margin-left:2px;margin-bottom:5px;flex-shrink:0"></div>
+            </div>
+            <div style="font-size:8px;letter-spacing:0.25em;color:rgba(255,255,255,0.3);text-transform:uppercase;font-family:'Manrope',sans-serif">vehicle rentals</div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">Keychain / Badge</div><div class="m-note">Dark stacked</div></div><span class="tag ts">Badge</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       07 POSTER & BANNER
+  ============================= -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-n">07</span>
+      <span class="sec-t">Posters & Banners</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="g2">
+
+      <!-- Hero poster dark -->
+      <div class="card">
+        <div class="canvas" style="background:var(--ink);height:320px;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:32px">
+          <div style="display:flex;align-items:baseline">
+            <span class="r" style="font-size:28px">r</span>
+            <span class="yvo" style="font-size:28px;color:white">yvo</span>
+            <div class="dot" style="width:5px;height:5px;margin-left:2px;margin-bottom:5px"></div>
+          </div>
+          <!-- big number BG -->
+          <div style="position:absolute;right:-10px;top:20px;font-family:'Chivo',sans-serif;font-weight:900;font-size:200px;letter-spacing:-0.06em;color:rgba(255,255,255,0.04);line-height:1;pointer-events:none">r</div>
+          <div style="position:relative;z-index:2">
+            <div style="font-family:'Chivo',sans-serif;font-weight:900;font-size:42px;color:white;letter-spacing:-0.03em;line-height:1.1">Your ride.<br>Your<span style="color:var(--blue)"> rules.</span></div>
+            <div style="margin-top:16px;font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase">Self-drive · Peer-to-peer</div>
+            <div style="margin-top:20px;background:var(--blue);display:inline-block;padding:10px 22px;border-radius:100px;font-size:12px;font-weight:700;color:white;letter-spacing:0.05em">Book a car →</div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Campaign Poster</div><div class="m-note">Dark · hero copy</div></div>
+          <span class="tag tg">Poster</span>
+        </div>
+      </div>
+
+      <!-- Clean white poster -->
+      <div class="card">
+        <div class="canvas" style="background:var(--paper);height:320px;flex-direction:column;justify-content:space-between;align-items:flex-start;padding:32px;border:1px solid rgba(0,0,0,0.07)">
+          <div style="display:flex;align-items:baseline">
+            <span class="r" style="font-size:28px">r</span>
+            <span class="yvo" style="font-size:28px;color:var(--ink)">yvo</span>
+            <div class="dot" style="width:5px;height:5px;margin-left:2px;margin-bottom:5px"></div>
+          </div>
+          <div style="position:absolute;right:-10px;bottom:-20px;font-family:'Chivo',sans-serif;font-weight:900;font-size:200px;letter-spacing:-0.06em;color:rgba(13,13,13,0.04);line-height:1;pointer-events:none">r</div>
+          <div style="position:relative;z-index:2">
+            <div style="font-family:'Chivo',sans-serif;font-weight:900;font-size:42px;color:var(--ink);letter-spacing:-0.03em;line-height:1.1">Drive <span style="color:var(--blue)">free.</span><br>Go anywhere.</div>
+            <div style="margin-top:16px;font-size:11px;color:var(--slate);letter-spacing:0.1em;text-transform:uppercase">Self-drive · Peer-to-peer</div>
+            <div style="margin-top:20px;background:var(--ink);display:inline-block;padding:10px 22px;border-radius:100px;font-size:12px;font-weight:700;color:white;letter-spacing:0.05em">Explore cars →</div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off">
+          <div><div class="m-name">Campaign Poster</div><div class="m-note">Light · paper bg</div></div>
+          <span class="tag tg">Poster</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Wide banner -->
+    <div style="margin-top:12px">
+      <div style="border-radius:16px;overflow:hidden">
+        <div style="background:var(--blue);padding:28px 40px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden">
+          <div style="position:absolute;right:-20px;top:-30px;font-family:'Chivo',sans-serif;font-weight:900;font-size:180px;letter-spacing:-0.06em;color:rgba(255,255,255,0.06);line-height:1">r</div>
+          <div style="position:relative;z-index:2;display:flex;align-items:baseline">
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:36px;letter-spacing:-0.04em;color:rgba(255,255,255,0.5)">r</span>
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:36px;letter-spacing:-0.04em;color:white">yvo</span>
+            <div style="width:6px;height:6px;border-radius:50%;background:white;margin-left:2px;margin-bottom:7px;flex-shrink:0"></div>
+          </div>
+          <div style="position:relative;z-index:2;font-family:'Chivo',sans-serif;font-weight:900;font-size:22px;color:white;letter-spacing:-0.02em">Rent any car, anywhere.</div>
+          <div style="position:relative;z-index:2;background:white;padding:10px 24px;border-radius:100px;font-size:12px;font-weight:700;color:var(--blue)">Get started</div>
+        </div>
+        <div style="padding:8px 16px;background:var(--off);font-size:10px;color:var(--slate)">Leaderboard Banner — blue bg · 728×90 style</div>
+      </div>
+    </div>
+
+    <div style="margin-top:10px">
+      <div style="border-radius:16px;overflow:hidden">
+        <div style="background:var(--ink);padding:20px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;position:relative;overflow:hidden">
+          <div style="position:absolute;left:40%;opacity:0.04;font-family:'Chivo',sans-serif;font-weight:900;font-size:120px;color:white;letter-spacing:-0.06em;top:-20px">ryvo</div>
+          <div style="display:flex;align-items:baseline;position:relative;z-index:2">
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.04em;color:var(--blue)">r</span>
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:28px;letter-spacing:-0.04em;color:white">yvo</span>
+            <div style="width:5px;height:5px;border-radius:50%;background:var(--blue);margin-left:2px;margin-bottom:5px;flex-shrink:0"></div>
+          </div>
+          <div style="font-size:13px;color:rgba(255,255,255,0.5);position:relative;z-index:2">Self-drive & peer-to-peer rentals · ryvo.in</div>
+          <div style="background:var(--blue);padding:8px 20px;border-radius:100px;font-size:11px;font-weight:700;color:white;position:relative;z-index:2">Download App</div>
+        </div>
+        <div style="padding:8px 16px;background:var(--off);font-size:10px;color:var(--slate)">Footer Banner — dark bg</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================
+       08 MONOCHROME & SPECIAL
+  ============================= -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-n">08</span>
+      <span class="sec-t">Monochrome, Emboss & Special Versions</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="g4">
+
+      <!-- All white -->
+      <div class="card">
+        <div class="canvas" style="background:#333;height:120px">
+          <div style="display:flex;align-items:baseline">
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:44px;letter-spacing:-0.04em;color:white">r</span>
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:44px;letter-spacing:-0.04em;color:white">yvo</span>
+            <div style="width:7px;height:7px;border-radius:50%;background:white;margin-left:2px;margin-bottom:8px;flex-shrink:0"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">All White</div><div class="m-note">Single color</div></div><span class="tag ts">Mono</span></div>
+      </div>
+
+      <!-- All black -->
+      <div class="card">
+        <div class="canvas" style="background:white;height:120px;border:1px solid rgba(0,0,0,0.07)">
+          <div style="display:flex;align-items:baseline">
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:44px;letter-spacing:-0.04em;color:var(--ink)">r</span>
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:44px;letter-spacing:-0.04em;color:var(--ink)">yvo</span>
+            <div style="width:7px;height:7px;border-radius:50%;background:var(--ink);margin-left:2px;margin-bottom:8px;flex-shrink:0"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">All Black</div><div class="m-note">Print / emboss</div></div><span class="tag ts">Mono</span></div>
+      </div>
+
+      <!-- Outline / engraved -->
+      <div class="card">
+        <div class="canvas" style="background:#C8A96E;height:120px">
+          <div style="display:flex;align-items:baseline">
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:44px;letter-spacing:-0.04em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,0.8)">r</span>
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:44px;letter-spacing:-0.04em;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,0.8)">yvo</span>
+            <div style="width:7px;height:7px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.8);margin-left:2px;margin-bottom:8px;flex-shrink:0"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">Engraved / Foil</div><div class="m-note">Gold / print finish</div></div><span class="tag ts">Special</span></div>
+      </div>
+
+      <!-- Reversed / knockout -->
+      <div class="card">
+        <div class="canvas" style="background:var(--blue);height:120px">
+          <div style="display:flex;align-items:baseline">
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:44px;letter-spacing:-0.04em;color:white">r</span>
+            <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:44px;letter-spacing:-0.04em;color:white">yvo</span>
+            <div style="width:7px;height:7px;border-radius:50%;background:white;margin-left:2px;margin-bottom:8px;flex-shrink:0"></div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">Reversed / Knockout</div><div class="m-note">All white on blue</div></div><span class="tag tb">Brand</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================
+       09 WORDMARK + TAGLINE SYSTEM
+  ============================= -->
+  <div class="sec">
+    <div class="sec-head">
+      <span class="sec-n">09</span>
+      <span class="sec-t">Lockup System — With Tagline & Sub</span>
+      <div class="sec-line"></div>
+    </div>
+    <div class="g3">
+
+      <!-- Horizontal -->
+      <div class="card">
+        <div class="canvas" style="background:var(--white);height:130px;border:1px solid rgba(0,0,0,0.07)">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="display:flex;align-items:baseline">
+              <span class="r" style="font-size:38px">r</span>
+              <span class="yvo" style="font-size:38px;color:var(--ink)">yvo</span>
+              <div class="dot" style="width:6px;height:6px;margin-left:2px;margin-bottom:7px"></div>
+            </div>
+            <div style="width:1px;height:36px;background:rgba(0,0,0,0.1)"></div>
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <div style="font-size:11px;font-weight:700;color:var(--ink);letter-spacing:0.02em">Vehicle Rentals</div>
+              <div style="font-size:9px;color:var(--slate);letter-spacing:0.08em">Self-drive · P2P</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">Horizontal Lockup</div><div class="m-note">Divider + text</div></div><span class="tag tg">Web / App</span></div>
+      </div>
+
+      <!-- Stacked center -->
+      <div class="card">
+        <div class="canvas" style="background:var(--ink);height:130px;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:baseline">
+            <span class="r" style="font-size:40px">r</span>
+            <span class="yvo" style="font-size:40px;color:white">yvo</span>
+            <div class="dot" style="width:7px;height:7px;margin-left:2px;margin-bottom:8px"></div>
+          </div>
+          <div style="font-size:9px;letter-spacing:0.28em;color:rgba(255,255,255,0.3);text-transform:uppercase;font-family:'Manrope',sans-serif">vehicle rentals</div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">Stacked Lockup</div><div class="m-note">Wordmark + subtitle</div></div><span class="tag tg">Poster</span></div>
+      </div>
+
+      <!-- Compact -->
+      <div class="card">
+        <div class="canvas" style="background:var(--blue);height:130px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:44px;height:44px;background:rgba(255,255,255,0.15);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:26px;color:white;letter-spacing:-0.04em">r</span>
+            </div>
+            <div>
+              <div style="display:flex;align-items:baseline">
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:30px;letter-spacing:-0.04em;color:rgba(255,255,255,0.5)">r</span>
+                <span style="font-family:'Chivo',sans-serif;font-weight:900;font-size:30px;letter-spacing:-0.04em;color:white">yvo</span>
+                <div style="width:5px;height:5px;border-radius:50%;background:white;margin-left:2px;margin-bottom:6px;flex-shrink:0"></div>
+              </div>
+              <div style="font-size:9px;letter-spacing:0.2em;color:rgba(255,255,255,0.45);text-transform:uppercase;font-family:'Manrope',sans-serif">rentals</div>
+            </div>
+          </div>
+        </div>
+        <div class="meta meta-bg-off"><div><div class="m-name">Icon + Compact</div><div class="m-note">Best for headers</div></div><span class="tag tb">Brand</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div style="border-top:1px solid rgba(13,13,13,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+    <div style="font-size:12px;color:var(--slate);line-height:1.8;max-width:520px">
+      <strong style="color:var(--ink)">Ryvo Logo System</strong> — 9 sections covering all use cases.<br>
+      Core rule: <span style="color:var(--blue);font-weight:700">r</span> is always Signal Blue <code style="background:rgba(37,99,235,0.1);padding:1px 6px;border-radius:4px;font-size:11px">#2563EB</code> · dot follows the same rule · yvo adapts to background.
+    </div>
+    <div style="font-size:11px;color:rgba(13,13,13,0.25);letter-spacing:0.1em">ryvo · brand system · 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
